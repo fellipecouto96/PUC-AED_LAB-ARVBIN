@@ -32,6 +32,7 @@ namespace AED
         int Quant = 0; // controla quantidade de elementos na árvore
         int Maior = -1; // controla qual o menor elemento contido na árvore
         int Menor = 999; // controla qual o maior elemento contido na árvore
+        int QtdNoFolha = 0; // controla quantos elementos da árvore são Nós Folha
 
         private CNo Raiz;
 
@@ -69,23 +70,23 @@ namespace AED
             }
         }
 
-        public int QuantidadeElementos(ref CNo Raiz)
+        public int QuantidadeElementos(CNo no)
         {
-            if (Raiz == null)
+            if (no == null)
                 return 0;
             else
-                Quant = 1 + QuantidadeElementos(ref Raiz.Esq) + QuantidadeElementos(ref Raiz.Dir);
+                Quant = 1 + QuantidadeElementos(no.Esq) + QuantidadeElementos(no.Dir);
             return Quant;
         }
 
-        public int MaiorElemento(ref CNo Raiz)
+        public int MaiorElemento(CNo no)
         {
-            if (Raiz != null)
+            if (no != null)
             {
-                if (Maior < Raiz.item)
-                    Maior = Raiz.item;
-                this.MaiorElemento(ref Raiz.Esq);
-                this.MaiorElemento(ref Raiz.Dir);
+                if (Maior < no.item)
+                    Maior = no.item;
+                this.MaiorElemento(no.Esq);
+                this.MaiorElemento(no.Dir);
                 return Maior;
             }
             else
@@ -95,21 +96,42 @@ namespace AED
 
         }
 
-        public int MenorElemento(ref CNo Raiz)
+        public int MenorElemento(CNo no)
         {
-            if (Raiz != null)
+            if (no != null)
             {
-                if (Menor > Raiz.item)
-                    Menor = Raiz.item;
-                this.MenorElemento(ref Raiz.Esq);
-                this.MenorElemento(ref Raiz.Dir);
+                if (Menor > no.item)
+                    Menor = no.item;
+                this.MenorElemento(no.Esq);
+                this.MenorElemento(no.Dir);
                 return Menor;
             }
             else
             {
                 return 0;
             }
-                
+
+        }
+
+        public int NoFolha(CNo no)
+        {
+            if (no != null)
+            {
+                if (no.Esq != null || no.Dir != null) // Verifica se o nó possui filhos, pois se não possuir ele é um nó folha
+                {
+                    NoFolha(no.Esq);
+                    NoFolha(no.Dir);
+                }
+                else
+                {
+                    QtdNoFolha++;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+            return QtdNoFolha;
         }
 
         public void Imprimir(int Ordem)
@@ -327,9 +349,11 @@ namespace AED
             arquivoEscrita = new StreamWriter("Resultado.txt", true);
 
             arquivoEscrita.WriteLine("Nó raiz: " + Raiz);
-            arquivoEscrita.WriteLine("Quantidade de nós da árvore: " + QuantidadeElementos(ref Raiz));
-            arquivoEscrita.WriteLine("O valor do maior nó da árvore: " + MaiorElemento(ref Raiz));
-            arquivoEscrita.WriteLine("O valor do menor nó da árvore: " + MenorElemento(ref Raiz));
+            arquivoEscrita.WriteLine("Quantidade de nós da árvore: " + QuantidadeElementos(Raiz));
+            arquivoEscrita.WriteLine("O valor do maior nó da árvore: " + MaiorElemento(Raiz));
+            arquivoEscrita.WriteLine("O valor do menor nó da árvore: " + MenorElemento(Raiz));
+            arquivoEscrita.WriteLine("A quantidade de nós folha da árvore: " + NoFolha(Raiz));
+
         }
     }
     #endregion
