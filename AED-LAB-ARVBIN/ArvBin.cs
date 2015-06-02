@@ -113,18 +113,39 @@ namespace AED
 
         }
 
-        public int NoFolha(CNo no)
+        public int QuantidadeNoFolha(CNo no)
         {
             if (no != null)
             {
                 if (no.Esq != null || no.Dir != null) // Verifica se o nó possui filhos, pois se não possuir ele é um nó folha
                 {
-                    NoFolha(no.Esq);
-                    NoFolha(no.Dir);
+                    QuantidadeNoFolha(no.Esq);
+                    QuantidadeNoFolha(no.Dir);
                 }
                 else
                 {
                     QtdNoFolha++;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+            return QtdNoFolha;
+        }
+
+        public int ImprimirNoFolhaEmOrdem(CNo no)
+        {
+            if (no != null)
+            {
+                if (no.Esq != null || no.Dir != null) // Verifica se o nó possui filhos, pois se não possuir ele é um nó folha
+                {
+                    ImprimirNoFolhaEmOrdem(no.Esq);
+                    ImprimirNoFolhaEmOrdem(no.Dir);
+                }
+                else
+                {
+                    EmOrdem(no);
                 }
             }
             else
@@ -352,7 +373,12 @@ namespace AED
             arquivoEscrita.WriteLine("Quantidade de nós da árvore: " + QuantidadeElementos(Raiz));
             arquivoEscrita.WriteLine("O valor do maior nó da árvore: " + MaiorElemento(Raiz));
             arquivoEscrita.WriteLine("O valor do menor nó da árvore: " + MenorElemento(Raiz));
-            arquivoEscrita.WriteLine("A quantidade de nós folha da árvore: " + NoFolha(Raiz));
+            arquivoEscrita.WriteLine("A quantidade de nós folha da árvore: " + QuantidadeNoFolha(Raiz));
+            arquivoEscrita.WriteLine("A quantidade de nós internos (isso inclui o nó raiz): "); //O que é isso mesmo?
+            arquivoEscrita.WriteLine("A impressão dos nós folha no percurso em-ordem: " + ImprimirNoFolhaEmOrdem(Raiz));
+            arquivoEscrita.WriteLine("A impressão dos nós internos no percurso em-ordem: \n"); Imprimir(1); //Impressão em ordem
+            arquivoEscrita.WriteLine("Informações detalhadas de cada nó: "); 
+            
 
         }
     }
