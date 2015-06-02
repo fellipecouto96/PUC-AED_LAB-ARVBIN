@@ -27,6 +27,9 @@ namespace AED
     class CArvBin
     {
         string ArquivoLeitura;
+        StreamReader arquivoLeitura;
+        StreamWriter arquivoEscrita;
+        int Quant;
 
         private CNo Raiz;
 
@@ -38,9 +41,10 @@ namespace AED
         public void Inserir(int item)
         {
             Insere(item, ref Raiz);
+            Quant++;
         }
 
-		private void Insere(int item, ref CNo no)
+        private void Insere(int item, ref CNo no)
         {
             // insere um item na arvore a partir da raiz
             if (no == null) // se estiver vazia
@@ -58,7 +62,10 @@ namespace AED
                     if (item > no.item)
                         Insere(item, ref no.Dir); // tentar a esq.
                     else
+                    {
                         Console.WriteLine("Elemento ja existente!!!\n");
+                        Quant--;
+                    }
             }
         }
 
@@ -248,10 +255,36 @@ namespace AED
             }
         }
 
-        //Recebe o caminho do arquivo passado pelo usuário
-        public void ReceberArquivo(string ArqUsuario)
+        //Recebe o caminho do arquivo passado pelo usuário e lê o arquivo solicitado pelo usuário
+        public void RecebeDiretorioArquivo(string ArqUsuario)
         {
             this.ArquivoLeitura = ArqUsuario;
+            arquivoLeitura = new StreamReader(ArquivoLeitura);
+        }
+
+        //Armazenar os números do arquivo informado pelo usuário criando uma árvore binária
+        public void ArmazenarNumeroArquivo()
+        {
+            string linha = "";
+
+            //Preenchendo o Árvore Binária com os números do arquivo             
+            while (linha != null)
+            {
+                linha = arquivoLeitura.ReadLine();
+                int numero = int.Parse(linha);
+                Inserir(numero);
+            }
+
+            arquivoLeitura.Close();
+        }
+
+        //Imprime o Arquivo de Resultados
+        public void ImprimirArquivo()
+        {
+            arquivoEscrita = new StreamWriter("Resultado.txt", true);
+
+            arquivoEscrita.WriteLine("Nó raiz: " + Raiz);
+            arquivoEscrita.WriteLine("Quantidade de nós da árvore: " + Quant);
         }
     }
     #endregion
