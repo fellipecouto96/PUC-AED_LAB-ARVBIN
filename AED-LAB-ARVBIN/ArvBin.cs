@@ -29,7 +29,9 @@ namespace AED
         string ArquivoLeitura;
         StreamReader arquivoLeitura;
         StreamWriter arquivoEscrita;
-        int Quant;
+        int Quant = 0; // controla quantidade de elementos na árvore
+        int Maior = -1; // controla qual o menor elemento contido na árvore
+        int Menor = 999; // controla qual o maior elemento contido na árvore
 
         private CNo Raiz;
 
@@ -67,6 +69,40 @@ namespace AED
                         Quant--;
                     }
             }
+        }
+
+        public int MaiorElemento(ref CNo Raiz)
+        {
+            if (Raiz != null)
+            {
+                if (Maior < Raiz.item)
+                    Maior = Raiz.item;
+                this.MaiorElemento(ref Raiz.Esq);
+                this.MaiorElemento(ref Raiz.Dir);
+                return Maior;
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
+
+        public int MenorElemento(ref CNo Raiz)
+        {
+            if (Raiz != null)
+            {
+                if (Menor > Raiz.item)
+                    Menor = Raiz.item;
+                this.MenorElemento(ref Raiz.Esq);
+                this.MenorElemento(ref Raiz.Dir);
+                return Menor;
+            }
+            else
+            {
+                return 0;
+            }
+                
         }
 
         public void Imprimir(int Ordem)
@@ -285,6 +321,8 @@ namespace AED
 
             arquivoEscrita.WriteLine("Nó raiz: " + Raiz);
             arquivoEscrita.WriteLine("Quantidade de nós da árvore: " + Quant);
+            arquivoEscrita.WriteLine("O valor do maior nó da árvore: " + MaiorElemento(ref Raiz));
+            arquivoEscrita.WriteLine("O valor do menor nó da árvore: " + MenorElemento(ref Raiz));
         }
     }
     #endregion
