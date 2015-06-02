@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections;
 
 namespace AED
@@ -25,6 +26,8 @@ namespace AED
 
     class CArvBin
     {
+        string ArquivoLeitura;
+
         private CNo Raiz;
 
         public CArvBin()
@@ -243,6 +246,12 @@ namespace AED
                     }
                 }
             }
+        }
+
+        //Recebe o caminho do arquivo passado pelo usuário
+        public void ReceberArquivo(string ArqUsuario)
+        {
+            this.ArquivoLeitura = ArqUsuario;
         }
     }
     #endregion
