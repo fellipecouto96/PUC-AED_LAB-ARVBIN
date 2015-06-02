@@ -43,7 +43,6 @@ namespace AED
         public void Inserir(int item)
         {
             Insere(item, ref Raiz);
-            Quant++;
         }
 
         private void Insere(int item, ref CNo no)
@@ -66,9 +65,17 @@ namespace AED
                     else
                     {
                         Console.WriteLine("Elemento ja existente!!!\n");
-                        Quant--;
                     }
             }
+        }
+
+        public int QuantidadeElementos(ref CNo Raiz)
+        {
+            if (Raiz == null)
+                return 0;
+            else
+                Quant = 1 + QuantidadeElementos(ref Raiz.Esq) + QuantidadeElementos(ref Raiz.Dir);
+            return Quant;
         }
 
         public int MaiorElemento(ref CNo Raiz)
@@ -320,7 +327,7 @@ namespace AED
             arquivoEscrita = new StreamWriter("Resultado.txt", true);
 
             arquivoEscrita.WriteLine("Nó raiz: " + Raiz);
-            arquivoEscrita.WriteLine("Quantidade de nós da árvore: " + Quant);
+            arquivoEscrita.WriteLine("Quantidade de nós da árvore: " + QuantidadeElementos(ref Raiz));
             arquivoEscrita.WriteLine("O valor do maior nó da árvore: " + MaiorElemento(ref Raiz));
             arquivoEscrita.WriteLine("O valor do menor nó da árvore: " + MenorElemento(ref Raiz));
         }
