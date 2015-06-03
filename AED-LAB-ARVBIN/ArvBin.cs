@@ -390,11 +390,11 @@ namespace AED
             arquivoEscrita.WriteLine("O valor do menor nó da árvore: " + MenorElemento(Raiz));
             arquivoEscrita.WriteLine("A quantidade de nós folha da árvore: " + QuantidadeNoFolha(Raiz));
             arquivoEscrita.WriteLine("A quantidade de nós internos (isso inclui o nó raiz): "); //Roberth vai fazer!
-            //arquivoEscrita.WriteLine("A impressão dos nós folha no percurso em-ordem: " + ImprimirNoFolhaEmOrdem(Raiz)); //Roberth vai fazer!
-            arquivoEscrita.Write("A impressão dos nós internos no percurso em-ordem: "); EmOrdemNoInternoArquivo(Raiz);
-            arquivoEscrita.WriteLine();
+            arquivoEscrita.WriteLine("A impressão dos nós folha no percurso em-ordem: "); //+ ImprimirNoFolhaEmOrdem(Raiz)); //Roberth vai fazer!
+            arquivoEscrita.Write("A impressão dos nós internos no percurso em-ordem: "); EmOrdemNoInternoArquivo(Raiz); arquivoEscrita.WriteLine();
             arquivoEscrita.WriteLine("Informações detalhadas de cada nó: "); //Fellipe vai fazer!
 
+            Console.Clear();
             Console.Write("\n\nImpressão realizada com sucesso! Favor verificar o arquivo Resultado.txt.");
 
             arquivoEscrita.Close();
