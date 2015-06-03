@@ -200,6 +200,20 @@ namespace AED
             }
         }
 
+        //Impressão dos nós folhas em Ordem no Arquivo passado por parametro
+        private void EmOrdemNoFolhaArquivo(CNo no)
+        {
+            // percorre em ordem crescente
+            if (no != null)
+            {
+
+                EmOrdemNoFolhaArquivo(no.Esq);
+                if (no.Esq == null && no.Dir == null)
+                    arquivoEscrita.Write(no.item + " ");
+                EmOrdemNoFolhaArquivo(no.Dir);
+            }
+        }
+
         private void PreOrdem(CNo no)
         {
             // percorre previlegiando a raiz sobre 
@@ -390,12 +404,15 @@ namespace AED
             arquivoEscrita.WriteLine("O valor do menor nó da árvore: " + MenorElemento(Raiz));
             arquivoEscrita.WriteLine("A quantidade de nós folha da árvore: " + QuantidadeNoFolha(Raiz));
             arquivoEscrita.WriteLine("A quantidade de nós internos (isso inclui o nó raiz): "); //Roberth vai fazer!
-            arquivoEscrita.WriteLine("A impressão dos nós folha no percurso em-ordem: "); //+ ImprimirNoFolhaEmOrdem(Raiz)); //Roberth vai fazer!
+            arquivoEscrita.Write("A impressão dos nós folha no percurso em-ordem: "); EmOrdemNoFolhaArquivo(Raiz); arquivoEscrita.WriteLine();
             arquivoEscrita.Write("A impressão dos nós internos no percurso em-ordem: "); EmOrdemNoInternoArquivo(Raiz); arquivoEscrita.WriteLine();
             arquivoEscrita.WriteLine("Informações detalhadas de cada nó: "); //Fellipe vai fazer!
 
             Console.Clear();
-            Console.Write("\n\nImpressão realizada com sucesso! Favor verificar o arquivo Resultado.txt.");
+            Console.Write("===============================================================================\n");
+            Console.Write("|            Impressão realizada com sucesso!                                 |");
+            Console.Write("|                               Favor verificar o arquivo Resultado.txt       |");
+            Console.Write("===============================================================================\n");
 
             arquivoEscrita.Close();
         }
