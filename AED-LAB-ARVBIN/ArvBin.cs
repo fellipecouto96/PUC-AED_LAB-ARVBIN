@@ -28,7 +28,8 @@ namespace AED
     {
         string ArquivoLeitura;
         StreamReader arquivoLeitura;
-        StreamWriter arquivoEscrita;
+        StreamWriter arquivoEscrita = new StreamWriter("Resultado.txt", true);
+
         int Quant = 0; // controla quantidade de elementos na árvore
         int Maior = -1; // controla qual o menor elemento contido na árvore
         int Menor = 999; // controla qual o maior elemento contido na árvore
@@ -346,6 +347,7 @@ namespace AED
         {
             this.ArquivoLeitura = ArqUsuario;
             arquivoLeitura = new StreamReader(ArquivoLeitura);
+            ArmazenarNumeroArquivo();
         }
 
         //Armazenar os números do arquivo informado pelo usuário criando uma árvore binária
@@ -357,29 +359,32 @@ namespace AED
             while (linha != null)
             {
                 linha = arquivoLeitura.ReadLine();
-                int numero = int.Parse(linha);
-                Inserir(numero);
+                if (linha != null)
+                {
+                    int numero = int.Parse(linha);
+                    Inserir(numero);
+                }
             }
-
             arquivoLeitura.Close();
+            ImprimirArquivo();
         }
 
         //Imprime o Arquivo de Resultados
         public void ImprimirArquivo()
         {
-            arquivoEscrita = new StreamWriter("Resultado.txt", true);
-
-            arquivoEscrita.WriteLine("Nó raiz: " + Raiz);
+            arquivoEscrita.WriteLine("Nó raiz: " + Raiz.item);
             arquivoEscrita.WriteLine("Quantidade de nós da árvore: " + QuantidadeElementos(Raiz));
             arquivoEscrita.WriteLine("O valor do maior nó da árvore: " + MaiorElemento(Raiz));
             arquivoEscrita.WriteLine("O valor do menor nó da árvore: " + MenorElemento(Raiz));
             arquivoEscrita.WriteLine("A quantidade de nós folha da árvore: " + QuantidadeNoFolha(Raiz));
-            arquivoEscrita.WriteLine("A quantidade de nós internos (isso inclui o nó raiz): "); //O que é isso mesmo?
-            arquivoEscrita.WriteLine("A impressão dos nós folha no percurso em-ordem: " + ImprimirNoFolhaEmOrdem(Raiz));
-            arquivoEscrita.WriteLine("A impressão dos nós internos no percurso em-ordem: \n"); Imprimir(1); //Impressão em ordem
-            arquivoEscrita.WriteLine("Informações detalhadas de cada nó: "); 
-            
+            arquivoEscrita.WriteLine("A quantidade de nós internos (isso inclui o nó raiz): "); //Roberth vai fazer!
+            arquivoEscrita.WriteLine("A impressão dos nós folha no percurso em-ordem: " + ImprimirNoFolhaEmOrdem(Raiz)); //Roberth vai fazer!
+            arquivoEscrita.WriteLine("A impressão dos nós internos no percurso em-ordem: \n"); //Fellipe vai fazer!
+            arquivoEscrita.WriteLine("Informações detalhadas de cada nó: "); //Fellipe vai fazer!
 
+            Console.Write("\n\nImpressão realizada com sucesso! Favor verificar o arquivo Resultado.txt.");
+
+            arquivoEscrita.Close();
         }
     }
     #endregion

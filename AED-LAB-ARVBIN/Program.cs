@@ -14,14 +14,12 @@ namespace AED_LAB_ARVBIN
             Console.Write("===============================================================================\n");
             Console.Write("                                 Bem Vindo!\n");
             Console.Write("===============================================================================\n\n\n");
-            Console.Write("Favor digitar o diretório do arquivo que deseja ler: ");
+            Console.Write("Favor digitar o diretório do arquivo que deseja ler\n");
+            Console.Write("--> ");
             string arquivoLeitura = Console.ReadLine();
 
             //Passa como parâmetro o caminho do arquivo a ser utilizado.
             arvBin.RecebeDiretorioArquivo(arquivoLeitura);
-
-            //Limpeza de Tela
-            Console.Clear();
 
             Console.ReadKey();
         }
