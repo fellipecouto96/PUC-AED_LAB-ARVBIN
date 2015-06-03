@@ -188,6 +188,18 @@ namespace AED
             }
         }
 
+        //Impressão dos nós internos em Ordem no Arquivo passado por parametro
+        private void EmOrdemNoInternoArquivo(CNo no)
+        {
+            // percorre em ordem crescente
+            if ((no != null) && (no.Esq != null || no.Dir != null))
+            {
+                EmOrdemNoInternoArquivo(no.Esq);
+                arquivoEscrita.Write(no.item + " ");
+                EmOrdemNoInternoArquivo(no.Dir);
+            }
+        }
+
         private void PreOrdem(CNo no)
         {
             // percorre previlegiando a raiz sobre 
@@ -378,8 +390,9 @@ namespace AED
             arquivoEscrita.WriteLine("O valor do menor nó da árvore: " + MenorElemento(Raiz));
             arquivoEscrita.WriteLine("A quantidade de nós folha da árvore: " + QuantidadeNoFolha(Raiz));
             arquivoEscrita.WriteLine("A quantidade de nós internos (isso inclui o nó raiz): "); //Roberth vai fazer!
-            arquivoEscrita.WriteLine("A impressão dos nós folha no percurso em-ordem: " + ImprimirNoFolhaEmOrdem(Raiz)); //Roberth vai fazer!
-            arquivoEscrita.WriteLine("A impressão dos nós internos no percurso em-ordem: \n"); //Fellipe vai fazer!
+            //arquivoEscrita.WriteLine("A impressão dos nós folha no percurso em-ordem: " + ImprimirNoFolhaEmOrdem(Raiz)); //Roberth vai fazer!
+            arquivoEscrita.Write("A impressão dos nós internos no percurso em-ordem: "); EmOrdemNoInternoArquivo(Raiz);
+            arquivoEscrita.WriteLine();
             arquivoEscrita.WriteLine("Informações detalhadas de cada nó: "); //Fellipe vai fazer!
 
             Console.Write("\n\nImpressão realizada com sucesso! Favor verificar o arquivo Resultado.txt.");
