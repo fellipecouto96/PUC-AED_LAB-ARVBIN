@@ -155,6 +155,41 @@ namespace AED
             return QtdNoInterno; // +1 para incluir o nó raiz
         }
 
+        // Controla sentido que irá percorrer a escritura dos detalhes dos nós
+        public void DetalheNo(CNo no)
+        {
+            if (no != null)
+            {
+                arquivoEscrita.WriteLine(); // Quebra de linha
+                EscreveDetalheNo(no); // Método recursivo que escreve no arquivo
+                DetalheNo(no.Esq);
+                DetalheNo(no.Dir);
+            }
+        }
+
+        // Escreve no arquivo os detalhes dos nós no sentido Pré Ordem
+        private void EscreveDetalheNo(CNo no)
+        {
+            int QtdFilhos = 0;
+            int FilhoEsq = 0;
+            int FilhoDir = 0;
+            if (no.Esq != null)
+            {
+                QtdFilhos++;
+                FilhoEsq = no.Esq.item;
+            }
+            if (no.Dir != null)
+            {
+                QtdFilhos++;
+                FilhoDir = no.Dir.item;
+            }
+            arquivoEscrita.WriteLine("Nó: " + no.item);
+            arquivoEscrita.WriteLine("Qtde. filhos: " + QtdFilhos);
+            arquivoEscrita.WriteLine("Filho esquerda: " + (FilhoEsq > 0 ? FilhoEsq.ToString() : "Não possui"));
+            arquivoEscrita.WriteLine("Filho direira: " + (FilhoDir > 0 ? FilhoDir.ToString() : "Não possui"));
+            arquivoEscrita.WriteLine("Nó interno ou folha?: " + (QtdFilhos > 0 ? "Interno" : "Folha"));
+        }
+
         public void Imprimir(int Ordem)
         {
             // Ordem = 1 => EmOrdem
@@ -404,8 +439,13 @@ namespace AED
             arquivoEscrita.WriteLine("A quantidade de nós folha da árvore: " + QuantidadeNoFolha(Raiz));
             arquivoEscrita.WriteLine("A quantidade de nós internos (isso inclui o nó raiz): " + QuantidadeNoInterno(Raiz));
             arquivoEscrita.Write("A impressão dos nós folha no percurso em-ordem: "); EmOrdemNoFolhaArquivo(Raiz); arquivoEscrita.WriteLine();
-            arquivoEscrita.Write("A impressão dos nós internos no percurso em-ordem: "); EmOrdemNoInternoArquivo(Raiz); arquivoEscrita.WriteLine();
-            arquivoEscrita.WriteLine("Informações detalhadas de cada nó: "); //Fellipe vai fazer!
+            arquivoEscrita.Write("A impressão dos nós internos no percurso em-ordem: "); EmOrdemNoInternoArquivo(Raiz);
+            // Quebras de linhas
+            arquivoEscrita.WriteLine(); 
+            arquivoEscrita.WriteLine();
+            arquivoEscrita.WriteLine("Informações dos nós (Pré-ordem): "); // Falta altura, produndidade do nó e fator de balanceamento
+            arquivoEscrita.WriteLine("==================================="); 
+            DetalheNo(Raiz); 
 
             Console.Clear();
             Console.Write("===============================================================================\n");
