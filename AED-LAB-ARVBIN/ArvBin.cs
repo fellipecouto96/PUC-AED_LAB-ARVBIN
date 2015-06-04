@@ -34,6 +34,7 @@ namespace AED
         int Maior = -1; // controla qual o menor elemento contido na árvore
         int Menor = 999; // controla qual o maior elemento contido na árvore
         int QtdNoFolha = 0; // controla quantos elementos da árvore são Nós Folha
+        int QtdNoInterno = 0; // controla quantos elementos da árvore são Nós Internos
 
         private CNo Raiz;
 
@@ -71,20 +72,22 @@ namespace AED
             }
         }
 
+        // Percorre toda a estrutura para que no fim informe a quantidade de nós ela possui
         public int QuantidadeElementos(CNo no)
         {
-            if (no == null)
+            if (no == null) // se a árvore contém nó
                 return 0;
             else
-                Quant = 1 + QuantidadeElementos(no.Esq) + QuantidadeElementos(no.Dir);
+                Quant = 1 + QuantidadeElementos(no.Esq) + QuantidadeElementos(no.Dir); // Inicia pelos filhos da raíz, sendo assim soma +1 para contar com ela
             return Quant;
         }
 
+        // Verifica qual nó possui o maior item
         public int MaiorElemento(CNo no)
         {
-            if (no != null)
+            if (no != null) // se a árvore contém nó 
             {
-                if (Maior < no.item)
+                if (Maior < no.item) // verifica se o valor da variável é menor que o valor do item
                     Maior = no.item;
                 this.MaiorElemento(no.Esq);
                 this.MaiorElemento(no.Dir);
@@ -97,11 +100,12 @@ namespace AED
 
         }
 
+        // Verifica qual nó possui o menor item
         public int MenorElemento(CNo no)
         {
-            if (no != null)
+            if (no != null) // se a árvore contém nó
             {
-                if (Menor > no.item)
+                if (Menor > no.item) // verifica se o valor da variável é menor que o valor do item
                     Menor = no.item;
                 this.MenorElemento(no.Esq);
                 this.MenorElemento(no.Dir);
@@ -114,6 +118,7 @@ namespace AED
 
         }
 
+        // Percorre toda a estrutura para que no fim informe a quantidade de nós folhas ela possui
         public int QuantidadeNoFolha(CNo no)
         {
             if (no != null)
@@ -124,36 +129,30 @@ namespace AED
                     QuantidadeNoFolha(no.Dir);
                 }
                 else
-                {
                     QtdNoFolha++;
-                }
             }
             else
-            {
                 return 0;
-            }
             return QtdNoFolha;
         }
 
-        public int ImprimirNoFolhaEmOrdem(CNo no)
+        // Percorre toda a estrutura para que no fim informe a quantidade de nós internos ela possui
+        public int QuantidadeNoInterno(CNo no)
         {
             if (no != null)
             {
-                if (no.Esq != null || no.Dir != null) // Verifica se o nó possui filhos, pois se não possuir ele é um nó folha
+                if (no.Esq != null || no.Dir != null) // Verifica se o nó possui filhos, pois se possuir ele é um nó interno
                 {
-                    ImprimirNoFolhaEmOrdem(no.Esq);
-                    ImprimirNoFolhaEmOrdem(no.Dir);
+                    QuantidadeNoInterno(no.Esq);
+                    QtdNoInterno++;
+                    QuantidadeNoInterno(no.Dir);
                 }
                 else
-                {
-                    EmOrdem(no);
-                }
+                    return 0;
             }
             else
-            {
                 return 0;
-            }
-            return QtdNoFolha;
+            return QtdNoInterno; // +1 para incluir o nó raiz
         }
 
         public void Imprimir(int Ordem)
@@ -403,7 +402,7 @@ namespace AED
             arquivoEscrita.WriteLine("O valor do maior nó da árvore: " + MaiorElemento(Raiz));
             arquivoEscrita.WriteLine("O valor do menor nó da árvore: " + MenorElemento(Raiz));
             arquivoEscrita.WriteLine("A quantidade de nós folha da árvore: " + QuantidadeNoFolha(Raiz));
-            arquivoEscrita.WriteLine("A quantidade de nós internos (isso inclui o nó raiz): "); //Roberth vai fazer!
+            arquivoEscrita.WriteLine("A quantidade de nós internos (isso inclui o nó raiz): " + QuantidadeNoInterno(Raiz)); //Roberth vai fazer!
             arquivoEscrita.Write("A impressão dos nós folha no percurso em-ordem: "); EmOrdemNoFolhaArquivo(Raiz); arquivoEscrita.WriteLine();
             arquivoEscrita.Write("A impressão dos nós internos no percurso em-ordem: "); EmOrdemNoInternoArquivo(Raiz); arquivoEscrita.WriteLine();
             arquivoEscrita.WriteLine("Informações detalhadas de cada nó: "); //Fellipe vai fazer!
