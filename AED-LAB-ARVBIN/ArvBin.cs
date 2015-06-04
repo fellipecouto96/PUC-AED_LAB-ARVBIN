@@ -167,13 +167,35 @@ namespace AED
             }
         }
 
+        public int ProfundidadeNo(CNo no)
+        {
+            int profundidade = 1;
+            ProfundidadeNo(Raiz, no, ref profundidade);
+            return profundidade;
+        }
+
+        //Calcula Profundidade do nó
+        private int ProfundidadeNo(CNo noAux, CNo no, ref int profundidade)
+        {
+            if (no.item > noAux.item)
+            {
+                profundidade += ProfundidadeNo(noAux.Dir, no , ref profundidade);
+            }
+            else if (no.item < noAux.item)
+            {
+                profundidade += ProfundidadeNo(noAux.Esq, no, ref profundidade);
+            }
+             return profundidade;
+        }
+
+        //Calcula Altura do nó
         public int AlturaNo(CNo no)
         {
             int x, y;
 
             //Se No for nulo retorna -1
             if (no == null)
-                return -1;
+                return 0;
 
             x = AlturaNo(no.Esq);
             y = AlturaNo(no.Dir);
@@ -205,7 +227,7 @@ namespace AED
             arquivoEscrita.WriteLine("Filho esquerda: " + (FilhoEsq > 0 ? FilhoEsq.ToString() : "Não possui"));
             arquivoEscrita.WriteLine("Filho direira: " + (FilhoDir > 0 ? FilhoDir.ToString() : "Não possui"));
             arquivoEscrita.WriteLine("Nó interno ou folha?: " + (QtdFilhos > 0 ? "Interno" : "Folha"));
-            arquivoEscrita.WriteLine("Altura e Profundidade do nó: " + AlturaNo(no) + " ");
+            arquivoEscrita.WriteLine("Altura e Profundidade do nó: " + AlturaNo(no) + " " + ProfundidadeNo(no));
         }
 
         public void Imprimir(int Ordem)
@@ -466,10 +488,10 @@ namespace AED
             DetalheNo(Raiz);
 
             Console.Clear();
-            Console.Write("==============================================================================\n");
-            Console.Write("|            Impressão realizada com sucesso!                                |");
-            Console.Write("|                               Favor verificar o arquivo Resultado.txt      |");
-            Console.Write("==============================================================================\n");
+            Console.Write("====================================================================");
+            Console.Write("\n|            Impressão realizada com sucesso!                       |");
+            Console.Write("\n|                        Favor verificar o arquivo Resultado.txt    |");
+            Console.Write("\n====================================================================");
 
             arquivoEscrita.Close();
         }
