@@ -402,7 +402,7 @@ namespace AED
             arquivoEscrita.WriteLine("O valor do maior nó da árvore: " + MaiorElemento(Raiz));
             arquivoEscrita.WriteLine("O valor do menor nó da árvore: " + MenorElemento(Raiz));
             arquivoEscrita.WriteLine("A quantidade de nós folha da árvore: " + QuantidadeNoFolha(Raiz));
-            arquivoEscrita.WriteLine("A quantidade de nós internos (isso inclui o nó raiz): " + QuantidadeNoInterno(Raiz)); //Roberth vai fazer!
+            arquivoEscrita.WriteLine("A quantidade de nós internos (isso inclui o nó raiz): " + QuantidadeNoInterno(Raiz));
             arquivoEscrita.Write("A impressão dos nós folha no percurso em-ordem: "); EmOrdemNoFolhaArquivo(Raiz); arquivoEscrita.WriteLine();
             arquivoEscrita.Write("A impressão dos nós internos no percurso em-ordem: "); EmOrdemNoInternoArquivo(Raiz); arquivoEscrita.WriteLine();
             arquivoEscrita.WriteLine("Informações detalhadas de cada nó: "); //Fellipe vai fazer!
