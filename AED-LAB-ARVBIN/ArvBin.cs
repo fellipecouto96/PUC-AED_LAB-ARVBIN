@@ -167,6 +167,7 @@ namespace AED
             }
         }
 
+        //Calcula Profundidade do nó
         public int ProfundidadeNo(CNo no)
         {
             int profundidade = 1;
@@ -228,6 +229,7 @@ namespace AED
             arquivoEscrita.WriteLine("Filho direira: " + (FilhoDir > 0 ? FilhoDir.ToString() : "Não possui"));
             arquivoEscrita.WriteLine("Nó interno ou folha?: " + (QtdFilhos > 0 ? "Interno" : "Folha"));
             arquivoEscrita.WriteLine("Altura e Profundidade do nó: " + AlturaNo(no) + " " + ProfundidadeNo(no));
+            arquivoEscrita.WriteLine("Fator de balanceamento do nó: "); //Falta o método do fator de balanceamento do nó
         }
 
         public void Imprimir(int Ordem)
