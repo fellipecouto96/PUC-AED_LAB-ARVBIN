@@ -167,6 +167,23 @@ namespace AED
             }
         }
 
+        public int AlturaNo(CNo no)
+        {
+            int x, y;
+
+            //Se No for nulo retorna -1
+            if (no == null)
+                return -1;
+
+            x = AlturaNo(no.Esq);
+            y = AlturaNo(no.Dir);
+
+            if (x > y)
+                return x + 1;
+            else
+                return y + 1;
+        }
+
         // Escreve no arquivo os detalhes dos nós no sentido Pré Ordem
         private void EscreveDetalheNo(CNo no)
         {
@@ -188,6 +205,7 @@ namespace AED
             arquivoEscrita.WriteLine("Filho esquerda: " + (FilhoEsq > 0 ? FilhoEsq.ToString() : "Não possui"));
             arquivoEscrita.WriteLine("Filho direira: " + (FilhoDir > 0 ? FilhoDir.ToString() : "Não possui"));
             arquivoEscrita.WriteLine("Nó interno ou folha?: " + (QtdFilhos > 0 ? "Interno" : "Folha"));
+            arquivoEscrita.WriteLine("Altura e Profundidade do nó: " + AlturaNo(no) + " ");
         }
 
         public void Imprimir(int Ordem)
@@ -441,17 +459,17 @@ namespace AED
             arquivoEscrita.Write("A impressão dos nós folha no percurso em-ordem: "); EmOrdemNoFolhaArquivo(Raiz); arquivoEscrita.WriteLine();
             arquivoEscrita.Write("A impressão dos nós internos no percurso em-ordem: "); EmOrdemNoInternoArquivo(Raiz);
             // Quebras de linhas
-            arquivoEscrita.WriteLine(); 
+            arquivoEscrita.WriteLine();
             arquivoEscrita.WriteLine();
             arquivoEscrita.WriteLine("Informações dos nós (Pré-ordem): "); // Falta altura, produndidade do nó e fator de balanceamento
-            arquivoEscrita.WriteLine("==================================="); 
-            DetalheNo(Raiz); 
+            arquivoEscrita.WriteLine("===================================");
+            DetalheNo(Raiz);
 
             Console.Clear();
-            Console.Write("===============================================================================\n");
-            Console.Write("|            Impressão realizada com sucesso!                                 |");
-            Console.Write("|                               Favor verificar o arquivo Resultado.txt       |");
-            Console.Write("===============================================================================\n");
+            Console.Write("==============================================================================\n");
+            Console.Write("|            Impressão realizada com sucesso!                                |");
+            Console.Write("|                               Favor verificar o arquivo Resultado.txt      |");
+            Console.Write("==============================================================================\n");
 
             arquivoEscrita.Close();
         }

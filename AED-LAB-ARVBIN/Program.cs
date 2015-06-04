@@ -11,9 +11,9 @@ namespace AED_LAB_ARVBIN
             CArvBin arvBin = new CArvBin();
 
             //Recebendo o arquivo do úsuario
-            Console.Write("===============================================================================\n");
+            Console.Write("==============================================================================\n");
             Console.Write("                                 Bem Vindo!\n");
-            Console.Write("===============================================================================\n\n\n");
+            Console.Write("==============================================================================\n\n\n");
             Console.Write("Favor digitar o diretório do arquivo que deseja ler\n");
             Console.Write("--> ");
             string arquivoLeitura = Console.ReadLine();
