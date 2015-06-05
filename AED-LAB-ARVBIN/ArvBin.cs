@@ -180,13 +180,35 @@ namespace AED
         {
             if (no.item > noAux.item)
             {
-                profundidade += ProfundidadeNo(noAux.Dir, no , ref profundidade);
+                profundidade += ProfundidadeNo(noAux.Dir, no, ref profundidade);
             }
             else if (no.item < noAux.item)
             {
                 profundidade += ProfundidadeNo(noAux.Esq, no, ref profundidade);
             }
-             return profundidade;
+            return profundidade;
+        }
+
+        //Calcula Fator de Balanceamento
+        public int FatorDeBalanceamento(CNo no)
+        {
+            int alturaDir;
+            int alturaEsq;
+            int FatBalanceamento;
+
+            if (no.Dir == null)
+                alturaDir = 0;
+            else
+                alturaDir = AlturaNo(no.Dir);
+
+            if (no.Esq == null)
+                alturaEsq = 0;
+            else
+                alturaEsq = AlturaNo(no.Esq);
+
+            FatBalanceamento = alturaEsq - alturaDir;
+
+            return FatBalanceamento;
         }
 
         //Calcula Altura do nó
@@ -229,7 +251,7 @@ namespace AED
             arquivoEscrita.WriteLine("Filho direira: " + (FilhoDir > 0 ? FilhoDir.ToString() : "Não possui"));
             arquivoEscrita.WriteLine("Nó interno ou folha?: " + (QtdFilhos > 0 ? "Interno" : "Folha"));
             arquivoEscrita.WriteLine("Altura e Profundidade do nó: " + AlturaNo(no) + " " + ProfundidadeNo(no));
-            arquivoEscrita.WriteLine("Fator de balanceamento do nó: "); //Falta o método do fator de balanceamento do nó
+            arquivoEscrita.WriteLine("Fator de balanceamento do nó: " + FatorDeBalanceamento(no));
         }
 
         public void Imprimir(int Ordem)
