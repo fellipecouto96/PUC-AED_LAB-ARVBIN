@@ -507,7 +507,7 @@ namespace AED
             // Quebras de linhas
             arquivoEscrita.WriteLine();
             arquivoEscrita.WriteLine();
-            arquivoEscrita.WriteLine("Informações dos nós (Pré-ordem): "); // Falta altura, produndidade do nó e fator de balanceamento
+            arquivoEscrita.WriteLine("Informações dos nós (Pré-ordem): ");
             arquivoEscrita.WriteLine("===================================");
             DetalheNo(Raiz);
 
